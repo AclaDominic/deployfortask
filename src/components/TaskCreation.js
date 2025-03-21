@@ -1,11 +1,16 @@
-import React, { useState } from "react"; // ✅ Import useState
+import React, { useState } from "react";
 
 function TaskCreation({ refreshTasks }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false); // Tracks form submission state
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (isSubmitting) return; // Prevent multiple submissions
+
+        setIsSubmitting(true); // Disable button during request
 
         const taskData = {
             title,
@@ -32,6 +37,8 @@ function TaskCreation({ refreshTasks }) {
             refreshTasks(); // ✅ Refresh task list after creation
         } catch (error) {
             console.error("Error:", error);
+        } finally {
+            setIsSubmitting(false); // Re-enable button after request completes
         }
     };
 
@@ -49,9 +56,11 @@ function TaskCreation({ refreshTasks }) {
                 onChange={(e) => setDescription(e.target.value)} 
                 placeholder="Task Description (optional)" 
             />
-            <button type="submit">Add Task</button>
+            <button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "Adding..." : "Add Task"}
+            </button>
         </form>
     );
 }
 
-export default TaskCreation; 
+export default TaskCreation;
