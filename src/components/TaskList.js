@@ -11,7 +11,7 @@ function TaskList() {
             .catch((error) => console.error("Error fetching tasks:", error));
     };
 
-    setInterval(fetchTasks, 2000); // Fetch tasks every 2 seconds
+    setInterval(fetchTasks, 5000); // Fetch tasks every 5 seconds
 
     useEffect(() => {
         fetchTasks();
