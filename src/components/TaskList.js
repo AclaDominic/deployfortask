@@ -3,27 +3,22 @@ import TaskCreation from "./TaskCreation";
 
 function TaskList() {
     const [tasks, setTasks] = useState([]);
-    const [loadingTaskId, setLoadingTaskId] = useState(null); // Tracks the task being completed
 
     const fetchTasks = () => {
-        fetch("https://taskproject-ype1.onrender.com/api/tasks")
+        fetch("/")
             .then((response) => response.json())
             .then((data) => setTasks(data))
             .catch((error) => console.error("Error fetching tasks:", error));
     };
 
+    setInterval(fetchTasks, 5000); // Fetch tasks every 5 seconds
+
     useEffect(() => {
         fetchTasks();
-        const interval = setInterval(fetchTasks, 5000); // Fetch tasks every 5 seconds
-        return () => clearInterval(interval); // Cleanup interval on unmount
     }, []);
 
     const completeTask = (id) => {
-        if (loadingTaskId) return; // Prevent multiple requests
-
-        setLoadingTaskId(id); // Disable button for this task
-
-        fetch(`https://taskproject-ype1.onrender.com/api/tasks/${id}/complete`, {
+        fetch(`/`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -33,8 +28,7 @@ function TaskList() {
         .then(() => {
             fetchTasks(); // Refresh task list after completing
         })
-        .catch((error) => console.error("Error completing task:", error))
-        .finally(() => setLoadingTaskId(null)); // Re-enable button
+        .catch((error) => console.error("Error completing task:", error));
     };
 
     return (
@@ -66,12 +60,7 @@ function TaskList() {
                             </td>
                             <td style={{ border: "1px solid black", padding: "8px" }}>
                                 {!task.completed && ( // Hide button if task is completed
-                                    <button 
-                                        onClick={() => completeTask(task.id)}
-                                        disabled={loadingTaskId === task.id} // Disable if request is pending
-                                    >
-                                        {loadingTaskId === task.id ? "Completing..." : "Complete"}
-                                    </button>
+                                    <button onClick={() => completeTask(task.id)}>Complete</button>
                                 )}
                             </td>
                         </tr>
