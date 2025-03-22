@@ -6,7 +6,7 @@ function TaskList() {
     const [tasks, setTasks] = useState([]);
 
     const fetchTasks = () => {
-        fetch("https://9c47-149-30-138-168.ngrok-free.app/api/tasks", { // ❌ Fix space in URL
+        fetch(`${API_URL}/api/tasks`, { // ❌ Fix space in URL
             method: "GET",
             headers: {
                 "ngrok-skip-browser-warning":"true", // ✅ Bypass ngrok warning
@@ -29,7 +29,7 @@ function TaskList() {
     }, []);
 
     const completeTask = (id) => {
-        fetch(`https://9c47-149-30-138-168.ngrok-free.app/api/tasks/${id}/complete`, {
+        fetch(`${API_URL}/api/tasks/${id}/complete`, {
             method: "PATCH",
             headers: {
                 "ngrok-skip-browser-warning": "true",

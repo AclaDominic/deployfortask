@@ -19,7 +19,7 @@ function TaskCreation({ refreshTasks }) {
         };
 
         try {
-            const response = await fetch("https://9c47-149-30-138-168.ngrok-free.app/api/tasks", {
+            const response = await fetch(`${API_URL}/api/tasks`, {
                 method: "POST",
                 headers: {
                     "ngrok-skip-browser-warning": "true",
