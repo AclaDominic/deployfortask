@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import API_URL from "./config";
 
 function TaskCreation({ refreshTasks }) {
     const [title, setTitle] = useState("");
@@ -18,9 +19,10 @@ function TaskCreation({ refreshTasks }) {
         };
 
         try {
-            const response = await fetch("https://taskproject-ype1.onrender.com/api/tasks", {
+            const response = await fetch("https://9c47-149-30-138-168.ngrok-free.app/api/tasks", {
                 method: "POST",
                 headers: {
+                    "ngrok-skip-browser-warning": "true",
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(taskData),

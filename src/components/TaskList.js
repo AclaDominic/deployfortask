@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
 import TaskCreation from "./TaskCreation";
+import API_URL from "./config";
 
 function TaskList() {
     const [tasks, setTasks] = useState([]);
 
     const fetchTasks = () => {
-        fetch("/")
-            .then((response) => response.json())
-            .then((data) => setTasks(data))
-            .catch((error) => console.error("Error fetching tasks:", error));
+        fetch("https://9c47-149-30-138-168.ngrok-free.app/api/tasks", { // ❌ Fix space in URL
+            method: "GET",
+            headers: {
+                "ngrok-skip-browser-warning":"true", // ✅ Bypass ngrok warning
+            },
+        })
+        .then((response) => response.json())
+        .then((data) => setTasks(data))
+        .catch((error) => console.error("Error fetching tasks:", error));
     };
+    
 
     setInterval(fetchTasks, 5000); // Fetch tasks every 5 seconds
 
@@ -18,9 +25,10 @@ function TaskList() {
     }, []);
 
     const completeTask = (id) => {
-        fetch(`/`, {
+        fetch("https://9c47-149-30-138-168.ngrok-free.app/api/tasks/${id}/complete", {
             method: "PATCH",
             headers: {
+                "ngrok-skip-browser-warning": "true",
                 "Content-Type": "application/json",
             },
         })
