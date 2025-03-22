@@ -29,7 +29,7 @@ function TaskList() {
     }, []);
 
     const completeTask = (id) => {
-        fetch("https://9c47-149-30-138-168.ngrok-free.app/api/tasks/${id}/complete", {
+        fetch(`https://9c47-149-30-138-168.ngrok-free.app/api/tasks/${id}/complete`, {
             method: "PATCH",
             headers: {
                 "ngrok-skip-browser-warning": "true",
