@@ -22,10 +22,11 @@ function TaskList() {
    
 
     useEffect(() => {
-        fetchTasks();
+        fetchTasks(); // Fetch tasks once when component mounts
 
-        setInterval(fetchTasks, 30000); // Fetch tasks every 30 seconds
-        return () => clearInterval(intervalId);
+        const intervalId = setInterval(fetchTasks, 30000); // Fetch tasks every 30 seconds
+
+        return () => clearInterval(intervalId); // Cleanup function to prevent multiple intervals
     }, []);
 
     const completeTask = (id) => {
