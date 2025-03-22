@@ -18,10 +18,14 @@ function TaskList() {
     };
     
 
-    setInterval(fetchTasks, 30000); // Fetch tasks every 30 seconds
+    
+   
 
     useEffect(() => {
         fetchTasks();
+
+        setInterval(fetchTasks, 30000); // Fetch tasks every 30 seconds
+        return () => clearInterval(intervalId);
     }, []);
 
     const completeTask = (id) => {
