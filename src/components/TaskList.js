@@ -31,7 +31,7 @@ function TaskList() {
 
     useEffect(() => {
         fetchTasks();
-        const interval = setInterval(fetchTasks, 30000);
+        const interval = setInterval(fetchTasks, 5000); // Refresh every 5 seconds
         return () => clearInterval(interval); // Cleanup interval on unmount
     }, []);
 
