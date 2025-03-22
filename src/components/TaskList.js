@@ -18,7 +18,7 @@ function TaskList() {
     };
     
 
-    setInterval(fetchTasks, 10000); // Fetch tasks every 10 seconds
+    setInterval(fetchTasks, 30000); // Fetch tasks every 30 seconds
 
     useEffect(() => {
         fetchTasks();
